@@ -1,0 +1,6 @@
+pylint
+mypy
+pytest
+pytest-cov
+Flask
+requests
