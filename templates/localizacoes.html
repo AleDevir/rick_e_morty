@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+{% block content %}
+
+{% if page > 1 %}
+<a href="/localizacoes/{{page-1}}">voltar</a>
+{% endif %}
+
+<a href="/localizacoes/{{page+1}}">próximo</a>
+
+<div class="row">
+    {% for local in dados.results %}
+    <div class="col-xl-2 col-lg-3 col-sm-4 col-6">
+        <h5>{{local.name}}</h5>
+        <h5>{{local.type}}</h5>
+        <h5>{{local.dimension}}</h5>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

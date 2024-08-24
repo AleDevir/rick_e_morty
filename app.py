@@ -76,6 +76,42 @@ def home():
     '''
     return render_template('home.html')
 
+
+@app.route('/episodios')
+def episodios_sem_pagina():
+    '''
+    Episódios
+    '''
+    return redirect('/episodios/1')
+
+
+@app.route('/episodios/<int:page>')
+def episodios(page: int):
+    '''
+    Episódios
+    '''
+    data = get_json_data_for(f"rickandmortyapi.com/api/episode?page={page}")
+    return render_template('episodios.html', dados=data, page=page)
+
+
+
+@app.route('/localizacoes')
+def localizacoes_sem_pagina():
+    '''
+    Localizações
+    '''
+    return redirect('/localizacoes/1')
+
+
+@app.route('/localizacoes/<int:page>')
+def localizacoes(page: int):
+    '''
+    Localizações
+    '''
+    data = get_json_data_for(f"rickandmortyapi.com/api/location?page={page}")
+    return render_template('localizacoes.html', dados=data, page=page)
+
+
 @app.route('/personagens')
 def personagens_sem_pagina():
     '''
@@ -90,7 +126,17 @@ def personagens(page: int):
     Personagens
     '''
     data = get_json_data_for(f"rickandmortyapi.com/api/character?page={page}")
-    return render_template('personagens.html', personagens_page=data, page=page)
+    return render_template('personagens.html', dados=data, page=page)
+
+
+@app.route('/personagem/<int:idt>')
+def personagem(idt: int):
+    '''
+    Personagem
+    '''
+    data = get_json_data_for(f"rickandmortyapi.com/api/character/{idt}")
+    return render_template('personagem.html', dados=data)
+
 
 #####################################################
 ####           TRATAMENTO  DE  ERROS             ####
