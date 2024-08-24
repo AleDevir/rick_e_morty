@@ -8,9 +8,11 @@
 <a href="/personagens/{{page+1}}">próximo</a>
 
 <div class="row">
-    {% for personagem in personagens_page.results %}
+    {% for personagem in dados.results %}
     <div class="col-xl-2 col-lg-3 col-sm-4 col-6">
-        <img src="{{personagem.image}}" alt="{{personagem.name}}" class="img-fluid img-thumbnail"/>
+        <a href="/personagem/{{personagem.id}}">
+            <img src="{{personagem.image}}" alt="{{personagem.name}}" class="img-fluid img-thumbnail"/>
+        </a>
         <h5>{{personagem.name}}</h5>
     </div>
     {% endfor %}

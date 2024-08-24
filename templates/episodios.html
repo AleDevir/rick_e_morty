@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+{% block content %}
+
+{% if page > 1 %}
+<a href="/episodios/{{page-1}}">voltar</a>
+{% endif %}
+
+<a href="/episodios/{{page+1}}">próximo</a>
+
+<div class="row">
+    {% for episodio in dados.results %}
+    <div class="col-xl-2 col-lg-3 col-sm-4 col-6">
+        <h5>{{episodio.name}}</h5>
+        <h5>{{episodio.air_date}}</h5>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
