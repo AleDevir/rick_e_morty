@@ -1,19 +1,41 @@
 {% extends "layout.html" %}
 {% block content %}
 
-{% if page > 1 %}
-<a href="/localizacoes/{{page-1}}">voltar</a>
-{% endif %}
+<div class="d-flex justify-content-between"> 
+    {% if page > 1 %}
+        <a href="/localizacoes/{{page-1}}" class="btn btn-sm mt-3" style="background-color: #63db58;">voltar</a>
+    {% else %}
+    <span>&nbsp;</span>
+    {% endif %}
+    {% if page < dados.info.pages %}
+        <a href="/localizacoes/{{page+1}}" class="btn btn-sm mt-3" style="background-color: #63db58;">próximo</a>
+    {% endif %}
+    
+</div>
 
-<a href="/localizacoes/{{page+1}}">próximo</a>
+<div class="d-flex flex-row justify-content-center">
+    <img src="../static/planetas.jpg" width="250px" height="250px" style="border-radius: 50%;"/>
+</div>
+<h4 style="color: #63db58; text-align: center; margin-bottom: 8px;">Localizações</h4>
 
 <div class="row">
+    <table class="table-hover table-sm">
+        <thead style="background-color: #1b1c1b; opacity: 0.9; color: #63db58;">
+          <tr>
+            <th scope="col" class="p-2">Nome</th>
+            <th scope="col" class="p-2">Tipo</th>
+            <th scope="col" class="p-2">Dimensão</th>
+    
+          </tr>
+        </thead>
+        <tbody style="background-color: #151f1a; opacity: 0.8; color: aliceblue;"> 
     {% for local in dados.results %}
-    <div class="col-xl-2 col-lg-3 col-sm-4 col-6">
-        <h5>{{local.name}}</h5>
-        <h5>{{local.type}}</h5>
-        <h5>{{local.dimension}}</h5>
-    </div>
+    <tr> 
+        <td class="p-2"><a style="text-decoration: none; color: floralwhite" href="/residentes_da_localizacao/{{local.id}}">{{local.name}}</a></td>
+        <td class="p-2"><a style="text-decoration: none; color: floralwhite" href="/residentes_da_localizacao/{{local.id}}">{{local.type}}</a></td>
+        <td class="p-2"><a style="text-decoration: none; color: floralwhite" href="/residentes_da_localizacao/{{local.id}}">{{local.dimension}}</a></td>
+
+      </tr>
     {% endfor %}
 </div>
 {% endblock %}

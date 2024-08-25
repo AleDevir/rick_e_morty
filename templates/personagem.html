@@ -1,17 +1,23 @@
 {% extends "layout.html" %}
 {% block content %}
+<div style="margin-top: 20px;">
+    <a class="btn btn-sm p-1"  style="background-color: #63db58; text-decoration: none; color: black" 
+    href="javascript:history.back()">voltar</a>
+</div>
 
-<a href="/personagens">voltar</a>
+<div class="d-flex justify-content-center " style="margin-top: 20px;">
+    <div class="flex-column">
+        <img src="{{dados.image}}" alt="{{dados.name}}" class="img-fluid mb-2" style=" border-radius: 50%; border: solid 5px  #63db58;" width="400px" height="300px"/>
 
-<div class="row">
-    <div class="col-xl-2 col-lg-3 col-sm-4 col-6">
-        <h5>{{dados.name}}</h5>
-        <h5>{{dados.status}}</h5>
-        <h5>{{dados.species}}</h5>
-        <h5>{{dados.gender}}</h5>
-        <h5>{{dados.origin.name}}</h5>
-        <h5>{{dados.location.name}}</h5>
-        <img src="{{dados.image}}" alt="{{dados.name}}" class="img-fluid"/>
+            <h5 style="text-align: center; color:#63db58;">Nome: {{dados.name}}</h5>
+            <h5 style="text-align: center; color:#63db58;">Status: {% if dados.status != 'unknown' %}{{dados.status}}{% else %}desconhecido{% endif %}</h5>
+            <h5 style="text-align: center; color:#63db58;">Espécie: {% if dados.species != 'unknown' %}{{dados.species}}{% else %}desconhecido{% endif %}</h5>
+            <h5 style="text-align: center; color:#63db58;">Gênero: {% if dados.gender != 'unknown' %}{{dados.gender}}{% else %}desconhecido{% endif %}</h5>
+            <h5 style="text-align: center; color:#63db58;">Origem: {% if dados.origin.name != 'unknown' %}{{dados.origin.name}}{% else %}desconhecida{% endif %}</h5>
+            <h5 style="text-align: center; color:#63db58;">Localização: {% if dados.location.name != 'unknown' %}{{dados.location.name}}{% else %}desconhecida{% endif %}</h5>
+
     </div>
+   
+  
 </div>
 {% endblock %}
