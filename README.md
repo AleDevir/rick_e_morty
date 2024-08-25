@@ -9,5 +9,7 @@ Repositório pessoal para fins de aprendizado em Flask
 + [![Pytest](https://img.shields.io/badge/Pytest-orange)](https://pypi.org/project/pytest/)
 
 Comando para instalação dos pacotes:
+```
+pip install -r requirements.txt
+```
 
-pip install -r requirements.txt 
