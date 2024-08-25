@@ -37,7 +37,7 @@ from typing import Any
 from flask import Flask, render_template, send_from_directory, abort, redirect
 import requests
 from werkzeug.exceptions import HTTPException
-import json
+# import json
 
 app = Flask(__name__)
 
@@ -48,7 +48,7 @@ def get_json_data_for(url: str) -> dict[str, Any]:
     https://flask.palletsprojects.com/en/1.1.x/quickstart/#variable-rules
     '''
     uri = f"https://{url}"
-    response = requests.get(uri)
+    response = requests.get(uri, timeout=5)
     if response.status_code != 200:
         abort(response.status_code)
     data = response.json()
@@ -93,7 +93,16 @@ def episodios(page: int):
     data = get_json_data_for(f"rickandmortyapi.com/api/episode?page={page}")
     return render_template('episodios.html', dados=data, page=page)
 
-
+@app.route('/personagens_do_episodio/<int:idt>')
+def personagens_do_episodio(idt: int):
+    '''
+    Episódio de identificador informado.
+    '''
+    data = get_json_data_for(f"rickandmortyapi.com/api/episode/{idt}")
+    data['characters_ids'] = [
+        c.split('/')[-1] for c in data['characters']
+    ]
+    return render_template('episodio.html', dados=data)
 
 @app.route('/localizacoes')
 def localizacoes_sem_pagina():
@@ -110,6 +119,18 @@ def localizacoes(page: int):
     '''
     data = get_json_data_for(f"rickandmortyapi.com/api/location?page={page}")
     return render_template('localizacoes.html', dados=data, page=page)
+
+
+@app.route('/residentes_da_localizacao/<int:idt>')
+def residentes_da_localizacao(idt: int):
+    '''
+    residentes de identificador informado.
+    '''
+    data = get_json_data_for(f"rickandmortyapi.com/api/location/{idt}")
+    data['characters_ids'] = [
+        c.split('/')[-1] for c in data['residents']
+    ]
+    return render_template('residentes.html', dados=data)
 
 
 @app.route('/personagens')
@@ -149,19 +170,23 @@ def page_not_found(e):
     status code = 404
     https://flask.palletsprojects.com/en/1.1.x/patterns/errorpages/
     '''
-    print(str(e))
-    print(type(e))
-    return render_template('erro.html', msg='Página não encontrada!'), 404
-
+    print(f"type(e)={type(e)} ERRO:{str(e)}")
+    return render_template('erro.html', error={
+        'code': '44',
+        'msg': 'Página não encontrada!',
+    }), 404
 
 @app.errorhandler(500)
-def page_not_found(e):
+def page_page_error(e):
     '''
     Erro inesperado
     status code = 500
     '''
-    print(str(e))
-    return render_template('erro.html', msg='Ops! Ocorreu um erro inesperado.'), 500
+    print(f"type(e)={type(e)} ERRO:{str(e)}")
+    return render_template('erro.html', error={
+        'code': '50',
+        'msg': 'Ops! Ocorreu um erro inesperado.',
+    }), 500
 
 
 @app.errorhandler(Exception)
@@ -170,11 +195,12 @@ def handle_exception(exception: Exception):
     Captura as exceções
     https://flask.palletsprojects.com/en/2.3.x/errorhandling/
     '''
-    print('1111111111111111111')
     if isinstance(exception, HTTPException):
         return exception
-    print('22222222222222222')
-    return render_template("erro.html", msg=str(exception)), 500
+    return render_template('erro.html', error={
+        'code': '50',
+        'msg': 'Ops! Ocorreu um erro inesperado.',
+    }), 500
 
 
 if __name__ == "__main__":

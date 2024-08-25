@@ -1,8 +1,11 @@
 {% extends "layout.html" %}
 {% block content %}
 <div>
-    <h1>Rick & Morty</h1>
-    <h2>Ops! Ocorreu um erro.</h2>
-    <h4>{{ msg }}</h4>
+    <div class="wrapper">
+        <div class="img-wrapper">
+            <span>{{error.code}}</span>
+        </div>
+        <h4 style="color: #fc3503">{{ error.msg }}</h4>
+    </div>
 </div>
 {% endblock %}
