@@ -47,8 +47,7 @@ def get_json_data_for(url: str) -> dict[str, Any]:
     Retorna os dados da URL informada.
     https://flask.palletsprojects.com/en/1.1.x/quickstart/#variable-rules
     '''
-    uri = f"https://{url}"
-    response = requests.get(uri, timeout=5)
+    response = requests.get(url, timeout=5)
     if response.status_code != 200:
         abort(response.status_code)
     data = response.json()
@@ -90,7 +89,7 @@ def episodios(page: int):
     '''
     Episódios
     '''
-    data = get_json_data_for(f"rickandmortyapi.com/api/episode?page={page}")
+    data = get_json_data_for(f"https://rickandmortyapi.com/api/episode?page={page}")
     return render_template('episodios.html', dados=data, page=page)
 
 @app.route('/personagens_do_episodio/<int:idt>')
@@ -98,7 +97,7 @@ def personagens_do_episodio(idt: int):
     '''
     Episódio de identificador informado.
     '''
-    data = get_json_data_for(f"rickandmortyapi.com/api/episode/{idt}")
+    data = get_json_data_for(f"https://rickandmortyapi.com/api/episode/{idt}")
     data['characters_ids'] = [
         c.split('/')[-1] for c in data['characters']
     ]
@@ -117,7 +116,7 @@ def localizacoes(page: int):
     '''
     Localizações
     '''
-    data = get_json_data_for(f"rickandmortyapi.com/api/location?page={page}")
+    data = get_json_data_for(f"https://rickandmortyapi.com/api/location?page={page}")
     return render_template('localizacoes.html', dados=data, page=page)
 
 
@@ -126,7 +125,7 @@ def residentes_da_localizacao(idt: int):
     '''
     residentes de identificador informado.
     '''
-    data = get_json_data_for(f"rickandmortyapi.com/api/location/{idt}")
+    data = get_json_data_for(f"https://rickandmortyapi.com/api/location/{idt}")
     data['characters_ids'] = [
         c.split('/')[-1] for c in data['residents']
     ]
@@ -146,7 +145,7 @@ def personagens(page: int):
     '''
     Personagens
     '''
-    data = get_json_data_for(f"rickandmortyapi.com/api/character?page={page}")
+    data = get_json_data_for(f"https://rickandmortyapi.com/api/character?page={page}")
     return render_template('personagens.html', dados=data, page=page)
 
 
@@ -155,7 +154,7 @@ def personagem(idt: int):
     '''
     Personagem
     '''
-    data = get_json_data_for(f"rickandmortyapi.com/api/character/{idt}")
+    data = get_json_data_for(f"https://rickandmortyapi.com/api/character/{idt}")
     return render_template('personagem.html', dados=data)
 
 
@@ -204,4 +203,4 @@ def handle_exception(exception: Exception):
 
 
 if __name__ == "__main__":
-    app.run(debug=True, port=8888)
+    app.run(debug=True, port=6969)

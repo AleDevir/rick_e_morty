@@ -1,20 +1,29 @@
 {% extends "layout.html" %}
 {% block content %}
-<div style="color: #63db58;">
-    <br/>
-    <div class="d-flex justify-content-between"> 
-        <h4>Personagens do episódio {{dados.name}}</h4>
-    </div>
-    <br/>
-    <div class="row ">
+<div style="margin-top: 20px;">
+    <a class="btn btn-sm mt-3" style="background-color: #63db58;"
+    href="javascript:history.back()">voltar</a>
+</div>
 
-        {% for idt in dados.characters_ids %}
-        <div class="col-xl-2 col-lg-3 col-sm-4 col-6 py-3" >
-            <a href="/personagem/{{idt}}" >
-                <img style="background-color: #63db58;" src="https://rickandmortyapi.com/api/character/avatar/{{idt}}.jpeg" alt="personagem do episódio" class="img-fluid img-thumbnail border-0"/>
-            </a>
-        </div>
-        {% endfor %}
-    </div>    
+<h3 class="color-primary text-center mt-3 mb-2">Episódio</h3>
+<div class="row mt-3">
+    <div>
+        <p class="color-primary fs-5">Episódio: {{dados.name}}</p>
+        <p class="color-primary fs-5">Lançamento: {{dados.air_date}}</p>
+        <p class="color-primary fs-5">Código: {{dados.episode}}</p>
+        <p class="color-primary fs-5">Personagens:</p>
+    </div>
+
+
+    {% for idt in dados.characters_ids %}
+    <div class="col-xl-2 col-lg-3 col-sm-4 col-6 mt-3">
+        <div class="text-center rounded" style="border: solid #63db58 1px;">
+            <img src="https://rickandmortyapi.com/api/character/avatar/{{idt}}.jpeg" alt="personagem"  class="img-fluid img-thumbnail border-0 bg-transparent"/>
+            <div class="rounded-bottom" style="background-color: #63db58;">
+                <a href="{{ url_for('personagem', idt = idt) }}" class="btn border-0" style="background-color: #63db58;">Ver perfil</a>
+            </div>
+        </div>    
+    </div>
+    {% endfor %}
 </div>
 {% endblock %}

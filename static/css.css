@@ -11,7 +11,7 @@
   
   html {
     height: 100%;
-    overflow: hidden;
+  
   }
   
   .wrapper{
@@ -79,7 +79,7 @@
   
   
   .space {
-    position: absolute;
+    position: fixed;
     width: 400vw;
     height: 400vh;
     top: 50%;
@@ -106,6 +106,17 @@
 }
 .rotate {
   
- 
   animation: girando 15s infinite;
 }
+
+.color-primary {
+  color: #63db58;
+}
+
+.bg-color-primary {
+  background: #63db58;
+}
+
+
+
+

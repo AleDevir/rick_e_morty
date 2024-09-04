@@ -2,22 +2,28 @@
 {% block content %}
 
 <div class="d-flex justify-content-between"> 
-{% if page > 1 %}
-<a href="/personagens/{{page-1}}" class="btn btn-sm mt-3" style="background-color: #63db58;">voltar</a>
-
-{% else %}
-<span>&nbsp;</span>
-{% endif %}
-<a href="/personagens/{{page+1}}" class="btn btn-sm mt-3" style="background-color: #63db58;">próximo</a>
+    {% if page > 1 %}
+    
+        <a href="{{ url_for('episodios', page = page-1)}}"class="btn btn-sm mt-3" style="background-color: #63db58;">voltar</a>
+    {% else %}
+    <span>&nbsp;</span>
+    {% endif %}
+    {% if page < dados.info.pages %}
+        <a href="{{ url_for('episodios', page = page+1)}}" class="btn btn-sm mt-3" style="background-color: #63db58;">próximo</a>
+    {% endif %}
+    </div>
 </div>
-<h4 style="color: #63db58; text-align: center; margin-bottom: 8px;">Personagens</h4>
+<h4 class="color-primary text-center mb-5">Personagens</h4>
 <div class="row mt-3">
     {% for personagem in dados.results %}
-    <div class="col-xl-2 col-lg-3 col-sm-4 col-6">
-        <a href="/personagem/{{personagem.id}}">
-            <img src="{{personagem.image}}" alt="{{personagem.name}}" style="background-color: #63db58;" class="img-fluid img-thumbnail border-0"/>
-        </a>
-        <p style="text-align: center; color: #63db58;">{{personagem.name}}</p>
+    <div class="col-xl-2 col-lg-3 col-sm-4 col-6 p-2">
+        <div class="text-center rounded" style="border: solid #63db58 1px;">
+            <p class="color-primary  text-center">{{personagem.name}}</p>
+            <a href="{{ url_for('personagem', idt = personagem.id) }}">
+                <img src="{{personagem.image}}" alt="{{personagem.name}}"  class="img-fluid img-thumbnail border-0 bg-transparent"/>
+            </a>          
+        </div>    
+        
     </div>
     {% endfor %}
 </div>
