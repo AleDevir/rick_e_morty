@@ -1,35 +1,5 @@
 '''
 API Flask Rick & Morty
-
-Documentação:
-https://rickandmortyapi.com/documentation/#rest
-
-https://rickandmortyapi.com/api/character
-
-https://rickandmortyapi.com/api/location
-
-https://rickandmortyapi.com/api/episode
-
-
-Para executar a aplicação:
-$ python app.py
-
-Documentação
-Favicon: https://flask.palletsprojects.com/en/2.3.x/patterns/favicon/
-
-Development Server:
-https://flask-fr.readthedocs.io/server/
-
-
-Custom Error Pages:
-https://flask.palletsprojects.com/en/1.1.x/patterns/errorpages/
-
-
-Handling Application Errors
-https://flask.palletsprojects.com/en/2.3.x/errorhandling/
-
-Quickstart
-https://flask.palletsprojects.com/en/1.1.x/quickstart/
 '''
 
 import os
@@ -45,15 +15,11 @@ app = Flask(__name__)
 def get_json_data_for(url: str) -> dict[str, Any]:
     '''
     Retorna os dados da URL informada.
-    https://flask.palletsprojects.com/en/1.1.x/quickstart/#variable-rules
     '''
     response = requests.get(url, timeout=5)
     if response.status_code != 200:
         abort(response.status_code)
     data = response.json()
-    # print('...................................')
-    # print(json.dumps(data, indent=4))
-    # print('...................................')
     return data
 
 
@@ -61,7 +27,6 @@ def get_json_data_for(url: str) -> dict[str, Any]:
 def favicon():
     '''
     favicon:
-    https://flask.palletsprojects.com/en/2.3.x/patterns/favicon/
     '''
     return send_from_directory(
         os.path.join(app.root_path, 'static'),
@@ -120,16 +85,16 @@ def localizacoes(page: int):
     return render_template('localizacoes.html', dados=data, page=page)
 
 
-@app.route('/residentes_da_localizacao/<int:idt>')
+@app.route('/localizacao/<int:idt>')
 def residentes_da_localizacao(idt: int):
     '''
-    residentes de identificador informado.
+    Localização de identificador informado.
     '''
     data = get_json_data_for(f"https://rickandmortyapi.com/api/location/{idt}")
     data['characters_ids'] = [
         c.split('/')[-1] for c in data['residents']
     ]
-    return render_template('residentes.html', dados=data)
+    return render_template('localizacao.html', dados=data)
 
 
 @app.route('/personagens')
