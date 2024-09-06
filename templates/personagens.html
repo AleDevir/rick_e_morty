@@ -4,12 +4,12 @@
 <div class="d-flex justify-content-between"> 
     {% if page > 1 %}
     
-        <a href="{{ url_for('episodios', page = page-1)}}"class="btn btn-sm mt-3" style="background-color: #63db58;">voltar</a>
+        <a href="{{ url_for('personagens', page = page-1)}}"class="btn btn-sm mt-3" style="background-color: #63db58;">voltar</a>
     {% else %}
     <span>&nbsp;</span>
     {% endif %}
     {% if page < dados.info.pages %}
-        <a href="{{ url_for('episodios', page = page+1)}}" class="btn btn-sm mt-3" style="background-color: #63db58;">próximo</a>
+        <a href="{{ url_for('personagens', page = page+1)}}" class="btn btn-sm mt-3" style="background-color: #63db58;">próximo</a>
     {% endif %}
     </div>
 </div>

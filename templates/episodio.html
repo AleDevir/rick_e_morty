@@ -5,7 +5,8 @@
     href="javascript:history.back()">voltar</a>
 </div>
 
-<h3 class="color-primary text-center mt-3 mb-2">Episódio</h3>
+<h2 class="color-primary text-center mt-3 mb-2">Episódio</h2>
+
 <div class="row mt-3">
     <div>
         <p class="color-primary fs-5">Episódio: {{dados.name}}</p>
@@ -14,14 +15,15 @@
         <p class="color-primary fs-5">Personagens:</p>
     </div>
 
-
     {% for personagem in dados.personagens %}
     <div class="col-xl-2 col-lg-3 col-sm-4 col-6 mt-3">
         <div class="text-center rounded" style="border: solid #63db58 1px;">
+            <a href="{{ url_for('personagem', idt = personagem.id) }}">
             <img src="https://rickandmortyapi.com/api/character/avatar/{{personagem.id}}.jpeg" alt="personagem"  class="img-fluid img-thumbnail border-0 bg-transparent"/>
             <div class="rounded-bottom" style="background-color: #63db58;">
-                <a href="{{ url_for('personagem', idt = personagem.id) }}" class="btn border-0" style="background-color: #63db58;">{{personagem.name}}</a>
+                <p class="btn btn-sm border-0" style="background-color: #63db58;">{{personagem.name}}</p>
             </div>
+        </a>
         </div>    
     </div>
     {% endfor %}

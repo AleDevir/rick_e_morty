@@ -29,10 +29,10 @@
         </thead>
         <tbody>
             {% for local in dados.results%}
-            <tr onclick="window.location='/residentes_da_localizacao/{{local.id}}';"> 
-            <td><a href="{{ url_for('residentes_da_localizacao', idt = local.id)}}" class="color-primary text-decoration-none">{% if local.name != 'unknown' %}{{local.name}} {% else %} desconhecido {% endif %}</a></td>    
-            <td><a href="{{ url_for('residentes_da_localizacao', idt = local.id)}}" class="color-primary text-decoration-none">{% if local.type != 'unknown' %}{{local.type}} {% else %} desconhecido {% endif %}</a></td>    
-            <td><a href="{{ url_for('residentes_da_localizacao', idt = local.id)}}" class="color-primary text-decoration-none">{% if local.dimension != 'unknown' %}{{local.dimension}} {% else %} desconhecida {% endif %}</a></td>    
+            <tr onclick="window.location='/localizacao/{{local.id}}';"> 
+            <td><a href="{{ url_for('localizacao', idt = local.id)}}" class="color-primary text-decoration-none">{% if local.name != 'unknown' %}{{local.name}} {% else %} desconhecido {% endif %}</a></td>    
+            <td><a href="{{ url_for('localizacao', idt = local.id)}}" class="color-primary text-decoration-none">{% if local.type != 'unknown' %}{{local.type}} {% else %} desconhecido {% endif %}</a></td>    
+            <td><a href="{{ url_for('localizacao', idt = local.id)}}" class="color-primary text-decoration-none">{% if local.dimension != 'unknown' %}{{local.dimension}} {% else %} desconhecida {% endif %}</a></td>    
           </tr>
           {% endfor %}
         </tbody>
