@@ -57,17 +57,20 @@ def episodios(page: int):
     data = get_json_data_for(f"https://rickandmortyapi.com/api/episode?page={page}")
     return render_template('episodios.html', dados=data, page=page)
 
-@app.route('/personagens_do_episodio/<int:idt>')
-def personagens_do_episodio(idt: int):
+@app.route('/episodio/<int:idt>')
+def episodio(idt: int):
     '''
     Episódio de identificador informado.
     '''
     data = get_json_data_for(f"https://rickandmortyapi.com/api/episode/{idt}")
-    data['characters_ids'] = [
-        c.split('/')[-1] for c in data['characters']
-    ]
-    personagens_ids = ','.join(data['characters_ids'])
-    data['personagens'] = get_json_data_for(f"https://rickandmortyapi.com/api/character/{personagens_ids}")
+    characters_ids = [c.split('/')[-1] for c in data['characters']]
+    if len(characters_ids) == 1:
+        data['personagens'] = [get_json_data_for(f"https://rickandmortyapi.com/api/character/{characters_ids[0]}")]
+    elif len(characters_ids) > 1:
+        personagens_ids = ','.join(characters_ids)
+        data['personagens'] = get_json_data_for(f"https://rickandmortyapi.com/api/character/{personagens_ids}")
+    else:
+        data['personagens'] = []
     return render_template('episodio.html', dados=data)
 
 @app.route('/localizacoes')
@@ -88,16 +91,20 @@ def localizacoes(page: int):
 
 
 @app.route('/localizacao/<int:idt>')
-def residentes_da_localizacao(idt: int):
+def localizacao(idt: int):
     '''
     Localização de identificador informado.
     '''
     data = get_json_data_for(f"https://rickandmortyapi.com/api/location/{idt}")
-    data['characters_ids'] = [
-        c.split('/')[-1] for c in data['residents']
-    ]
-    personagens_ids = ','.join(data['characters_ids'])
-    data['personagens'] = get_json_data_for(f"https://rickandmortyapi.com/api/character/{personagens_ids}")
+    
+    characters_ids = [c.split('/')[-1] for c in data['residents']]
+    if len(characters_ids) == 1:
+        data['personagens'] = [get_json_data_for(f"https://rickandmortyapi.com/api/character/{characters_ids[0]}")]
+    elif len(characters_ids) > 1:
+        personagens_ids = ','.join(characters_ids)
+        data['personagens'] = get_json_data_for(f"https://rickandmortyapi.com/api/character/{personagens_ids}")
+    else:
+        data['personagens'] = []
     return render_template('localizacao.html', dados=data)
 
 
@@ -163,8 +170,7 @@ def handle_exception(exception: Exception):
     Captura as exceções
     https://flask.palletsprojects.com/en/2.3.x/errorhandling/
     '''
-    if isinstance(exception, HTTPException):
-        return exception
+    print(f"type(e)={type(exception)} ERRO:{str(exception)}")
     return render_template('erro.html', error={
         'code': '50',
         'msg': 'Ops! Ocorreu um erro inesperado.',
