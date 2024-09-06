@@ -66,6 +66,8 @@ def personagens_do_episodio(idt: int):
     data['characters_ids'] = [
         c.split('/')[-1] for c in data['characters']
     ]
+    personagens_ids = ','.join(data['characters_ids'])
+    data['personagens'] = get_json_data_for(f"https://rickandmortyapi.com/api/character/{personagens_ids}")
     return render_template('episodio.html', dados=data)
 
 @app.route('/localizacoes')
@@ -94,6 +96,8 @@ def residentes_da_localizacao(idt: int):
     data['characters_ids'] = [
         c.split('/')[-1] for c in data['residents']
     ]
+    personagens_ids = ','.join(data['characters_ids'])
+    data['personagens'] = get_json_data_for(f"https://rickandmortyapi.com/api/character/{personagens_ids}")
     return render_template('localizacao.html', dados=data)
 
 

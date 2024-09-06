@@ -14,12 +14,12 @@
         <p class="color-primary fs-5">Residentes:</p>
     </div>
 
-    {% for idt in dados.characters_ids%}
+    {% for personagem in dados.personagens %}
     <div class="col-xl-2 col-lg-3 col-sm-4 col-6 mt-3">
         <div class="text-center rounded" style="border: solid #63db58 1px;"> 
-            <img src="https://rickandmortyapi.com/api/character/avatar/{{idt}}.jpeg" alt="personagem"  class="img-fluid img-thumbnail border-0 bg-transparent"/>
+            <img src="https://rickandmortyapi.com/api/character/avatar/{{personagem.id}}.jpeg" alt="personagem"  class="img-fluid img-thumbnail border-0 bg-transparent"/>
             <div class="rounded-bottom" style="background-color: #63db58;">
-                <a href="{{ url_for('personagem', idt = idt) }}" class="btn border-0" style="background-color: #63db58;">Ver perfil</a>
+                <a href="{{ url_for('personagem', idt = personagem.id) }}" class="btn border-0" style="background-color: #63db58;">{{personagem.name}}</a>
             </div>
         </div>    
     </div>
