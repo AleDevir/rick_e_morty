@@ -1,9 +1,11 @@
-## Comando para executar o servidor (modo debug porta=6969):
+### Comando para executar o servidor (modo debug porta=6969):
 ```
 python app.py
 ```
+### api Rick & Morty:
+[API-Rick & Morty](https://rickandmortyapi.com/api)
 
-## Documentação utilizada:
+### Documentação utilizada:
 
 + [Python-urllib]( https://docs.python.org/3/howto/urllib2.html)
 
@@ -24,7 +26,7 @@ python app.py
 + [Quickstart](https://flask.palletsprojects.com/en/1.1.x/quickstart/)
 
 
-## Verificação Estática de Código (pylint e mypy):
+### Verificação Estática de Código (pylint e mypy):
 ```
 pylint app.py
 
