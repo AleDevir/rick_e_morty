@@ -6,13 +6,23 @@ import os
 from typing import Any
 from flask import Flask, render_template, send_from_directory, abort, redirect
 import requests
-from werkzeug.exceptions import HTTPException
-# import json
 
 app = Flask(__name__)
 
-@app.route('/api/<path:url>')
-def get_json_data_for(url: str) -> dict[str, Any]:
+def links_to_data_list(links: list[str], url: str) -> list[dict[str, Any]]:
+    '''
+    Dado uma lista de links é retornado uma lista de informações.
+    '''
+    ids = [c.split('/')[-1] for c in links]
+    if len(ids) == 1:
+        return [get_json_data_for(f"{url}/{ids[0]}")]
+    if len(ids) > 1:
+        ids_entre_virgulas = ','.join(ids)
+        return get_json_data_list_for(f"{url}/{ids_entre_virgulas}")
+    return []
+
+
+def get_data_for(url: str) -> dict[str, Any] | list[dict[str, Any]]:
     '''
     Retorna os dados da URL informada.
     '''
@@ -21,6 +31,20 @@ def get_json_data_for(url: str) -> dict[str, Any]:
         abort(response.status_code)
     data = response.json()
     return data
+
+
+def get_json_data_for(url: str) -> dict[str, Any]:
+    '''
+    Retorna um dicionário de dados da URL informada.
+    '''
+    return get_data_for(url) # type: ignore[return-value]
+
+
+def get_json_data_list_for(url: str) -> list[dict[str, Any]]:
+    '''
+    Retorna uma lista de dados da URL informada.
+    '''
+    return get_data_for(url) # type: ignore[return-value]
 
 
 @app.route('/favicon.ico')
@@ -58,20 +82,17 @@ def episodios(page: int):
     data['episodios'] = data['results']
     return render_template('episodios.html', dados=data, page=page)
 
+
 @app.route('/episodio/<int:idt>')
 def episodio(idt: int):
     '''
     Episódio de identificador informado.
     '''
     data = get_json_data_for(f"https://rickandmortyapi.com/api/episode/{idt}")
-    characters_ids = [c.split('/')[-1] for c in data['characters']]
-    if len(characters_ids) == 1:
-        data['personagens'] = [get_json_data_for(f"https://rickandmortyapi.com/api/character/{characters_ids[0]}")]
-    elif len(characters_ids) > 1:
-        personagens_ids = ','.join(characters_ids)
-        data['personagens'] = get_json_data_for(f"https://rickandmortyapi.com/api/character/{personagens_ids}")
-    else:
-        data['personagens'] = []
+    data['personagens'] = links_to_data_list(
+        data['characters'],
+        'https://rickandmortyapi.com/api/character'
+    )
     return render_template('episodio.html', dados=data)
 
 @app.route('/localizacoes')
@@ -97,14 +118,10 @@ def localizacao(idt: int):
     Localização de identificador informado.
     '''
     data = get_json_data_for(f"https://rickandmortyapi.com/api/location/{idt}")
-    characters_ids = [c.split('/')[-1] for c in data['residents']]
-    if len(characters_ids) == 1:
-        data['personagens'] = [get_json_data_for(f"https://rickandmortyapi.com/api/character/{characters_ids[0]}")]
-    elif len(characters_ids) > 1:
-        personagens_ids = ','.join(characters_ids)
-        data['personagens'] = get_json_data_for(f"https://rickandmortyapi.com/api/character/{personagens_ids}")
-    else:
-        data['personagens'] = []
+    data['personagens'] = links_to_data_list(
+        data['residents'],
+        'https://rickandmortyapi.com/api/character'
+    )
     return render_template('localizacao.html', dados=data)
 
 
@@ -132,14 +149,10 @@ def personagem(idt: int):
     Personagem
     '''
     data = get_json_data_for(f"https://rickandmortyapi.com/api/character/{idt}")
-    episodes_ids = [c.split('/')[-1] for c in data['episode']]
-    if len(episodes_ids) == 1:
-        data['episodios'] = [get_json_data_for(f"https://rickandmortyapi.com/api/episode/{episodes_ids[0]}")]
-    elif len(episodes_ids) > 1:
-        episodios_ids = ','.join(episodes_ids)
-        data['episodios'] = get_json_data_for(f"https://rickandmortyapi.com/api/episode/{episodios_ids}")
-    else:
-        data['episodios'] = []
+    data['episodios'] = links_to_data_list(
+        data['episode'],
+        'https://rickandmortyapi.com/api/episode'
+    )
     return render_template('personagem.html', dados=data)
 
 
