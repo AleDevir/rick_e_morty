@@ -121,6 +121,7 @@ def personagens(page: int):
     Personagens
     '''
     data = get_json_data_for(f"https://rickandmortyapi.com/api/character?page={page}")
+    data['personagens'] = data['results']
     return render_template('personagens.html', dados=data, page=page)
 
 
