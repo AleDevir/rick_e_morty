@@ -7,7 +7,10 @@ Repositório pessoal para fins de aprendizado em Flask
 
 Comando para instalação dos pacotes:
 ```
-pip install -r requirements.txt 
+pip install -r requirements.txt
+
+# Complementando com a tipagem necessária ao mypy
+mypy --install-types
 
 ```
 
