@@ -117,36 +117,6 @@
   background: #63db58;
 }
 
-/* .img-passagem {
-  background: transparent;
-  height: 100vh; 
-  aspect-ratio: 1 / 1;
-  animation: 2s linear 0s infinite alternate image;
-} */
 
-.img-passagem {
-
-  animation:
-    10s linear 0s infinite alternate rise,
-    10s linear 0s infinite alternate bounce;
-}
-
-@keyframes rise {
-  from {
-    transform: translateY(110vh);
-  }
-  to {
-    transform: translateY(0);
-  }
-}
-
-@keyframes bounce {
-  from {
-    transform: translateX(-10vw);
-  }
-  to {
-    transform: translateX(10vw);
-  }
-}
 
 

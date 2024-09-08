@@ -1,22 +1,42 @@
 {% extends "layout.html" %}
 {% block content %}
-<div style="margin-top: 20px;">
+<div class="my-4">
     <a class="btn btn-sm p-1"  style="background-color: #63db58; text-decoration: none; color: black" 
     href="javascript:history.back()">voltar</a>
 </div>
 
-<div class="d-flex justify-content-center " style="margin-top: 20px;">
-    <div class="flex-column">
-        <img src="{{dados.image}}" alt="{{dados.name}}" class="img-fluid mb-2" style=" border-radius: 50%; border: solid 5px  #63db58;" width="400px" height="300px"/>
-
-            <h5 style="text-align: center; color:#63db58;">Nome: {{dados.name}}</h5>
-            <h5 style="text-align: center; color:#63db58;">Status: {% if dados.status != 'unknown' %}{{dados.status}}{% else %}desconhecido{% endif %}</h5>
-            <h5 style="text-align: center; color:#63db58;">Espécie: {% if dados.species != 'unknown' %}{{dados.species}}{% else %}desconhecido{% endif %}</h5>
-            <h5 style="text-align: center; color:#63db58;">Gênero: {% if dados.gender != 'unknown' %}{{dados.gender}}{% else %}desconhecido{% endif %}</h5>
-            <h5 style="text-align: center; color:#63db58;">Origem: {% if dados.origin.name != 'unknown' %}{{dados.origin.name}}{% else %}desconhecida{% endif %}</h5>
-            <h5 style="text-align: center; color:#63db58;">Localização: {% if dados.location.name != 'unknown' %}{{dados.location.name}}{% else %}desconhecida{% endif %}</h5>
-
+<div class="d-flex flex-column justify-content-center" >
+    <div class="d-flex align-baseline">
+        <img src="{{dados.image}}" alt="{{dados.name}}" class="img-fluid mb-2 rounded-circle mx-5" style="border: solid 3px #63db58;" width="400px" height="300px"/>
+        <div class="my-5" >
+            <h5 class="color-primary text-center">Nome: {{dados.name}}</h5>
+            <h5 class="color-primary text-center">Status: {% if dados.status != 'unknown' %}{{dados.status}}{% else %}desconhecido{% endif %}</h5>
+            <h5 class="color-primary text-center">Espécie: {% if dados.species != 'unknown' %}{{dados.species}}{% else %}desconhecido{% endif %}</h5>
+            <h5 class="color-primary text-center">Gênero: {% if dados.gender != 'unknown' %}{{dados.gender}}{% else %}desconhecido{% endif %}</h5>
+            <h5 class="color-primary text-center">Origem: {% if dados.origin.name != 'unknown' %}{{dados.origin.name}}{% else %}desconhecida{% endif %}</h5>
+            <h5 class="color-primary text-center">Localização: {% if dados.location.name != 'unknown' %}{{dados.location.name}}{% else %}desconhecida{% endif %}</h5>
+        </div>
     </div>
+    <div class="table-responsive mt-5">
+        <table class="table table-dark table-hover opacity-75">
+            <thead class="text-info">
+              <tr >
+                <th scope="col">id</th>
+                <th scope="col">Episódio com o personagem</th>
+                <th scope="col">Lançamento</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for episodio in dados.episodios%}
+              <tr onclick="window.location='/episodio/{{episodio.id}}';"> 
+                <td><a href="{{ url_for('episodio', idt = episodio.id)}}" class="color-primary text-decoration-none">{{episodio.id}}</a></td>    
+                <td><a href="{{ url_for('episodio', idt = episodio.id)}}" class="color-primary text-decoration-none">{{episodio.name}}</a></td>    
+                <td><a href="{{ url_for('episodio', idt = episodio.id)}}" class="color-primary text-decoration-none">{{episodio.air_date}}</a></td>    
+              </tr>
+              {% endfor %}
+            </tbody>
+        </table>
+        </div>
    
   
 </div>

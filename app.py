@@ -96,7 +96,6 @@ def localizacao(idt: int):
     Localização de identificador informado.
     '''
     data = get_json_data_for(f"https://rickandmortyapi.com/api/location/{idt}")
-    
     characters_ids = [c.split('/')[-1] for c in data['residents']]
     if len(characters_ids) == 1:
         data['personagens'] = [get_json_data_for(f"https://rickandmortyapi.com/api/character/{characters_ids[0]}")]
@@ -131,6 +130,14 @@ def personagem(idt: int):
     Personagem
     '''
     data = get_json_data_for(f"https://rickandmortyapi.com/api/character/{idt}")
+    episodes_ids = [c.split('/')[-1] for c in data['episode']]
+    if len(episodes_ids) == 1:
+        data['episodios'] = [get_json_data_for(f"https://rickandmortyapi.com/api/episode/{episodes_ids[0]}")]
+    elif len(episodes_ids) > 1:
+        episodios_ids = ','.join(episodes_ids)
+        data['episodios'] = get_json_data_for(f"https://rickandmortyapi.com/api/episode/{episodios_ids}")
+    else:
+        data['episodios'] = []
     return render_template('personagem.html', dados=data)
 
 
