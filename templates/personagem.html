@@ -17,27 +17,6 @@
             <h5 class="color-primary text-center">Localização: {% if dados.location.name != 'unknown' %}{{dados.location.name}}{% else %}desconhecida{% endif %}</h5>
         </div>
     </div>
-    <div class="table-responsive mt-5">
-        <table class="table table-dark table-hover opacity-75">
-            <thead class="text-info">
-              <tr >
-                <th scope="col">id</th>
-                <th scope="col">Episódio com o personagem</th>
-                <th scope="col">Lançamento</th>
-              </tr>
-            </thead>
-            <tbody>
-                {% for episodio in dados.episodios%}
-              <tr onclick="window.location='/episodio/{{episodio.id}}';"> 
-                <td><a href="{{ url_for('episodio', idt = episodio.id)}}" class="color-primary text-decoration-none">{{episodio.id}}</a></td>    
-                <td><a href="{{ url_for('episodio', idt = episodio.id)}}" class="color-primary text-decoration-none">{{episodio.name}}</a></td>    
-                <td><a href="{{ url_for('episodio', idt = episodio.id)}}" class="color-primary text-decoration-none">{{episodio.air_date}}</a></td>    
-              </tr>
-              {% endfor %}
-            </tbody>
-        </table>
-        </div>
-   
-  
+    {% include "episodios_tabela.html" %}
 </div>
 {% endblock %}

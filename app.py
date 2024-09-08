@@ -55,6 +55,7 @@ def episodios(page: int):
     Episódios
     '''
     data = get_json_data_for(f"https://rickandmortyapi.com/api/episode?page={page}")
+    data['episodios'] = data['results']
     return render_template('episodios.html', dados=data, page=page)
 
 @app.route('/episodio/<int:idt>')
