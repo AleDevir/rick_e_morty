@@ -17,10 +17,10 @@
 <div class="row mt-3">
     {% for personagem in dados.results %}
     <div class="col-xl-2 col-lg-3 col-sm-4 col-6 p-2">
-        <div class="text-center rounded" style="border: solid #63db58 1px;">
-            <p class="color-primary  text-center">{{personagem.name}}</p>
-            <a href="{{ url_for('personagem', idt = personagem.id) }}">
-                <img src="{{personagem.image}}" alt="{{personagem.name}}"  class="img-fluid img-thumbnail border-0 bg-transparent"/>
+        <div class="text-center rounded" >
+            <a href="{{ url_for('personagem', idt = personagem.id) }}" class="text-decoration-none text-dark rounded-bottom border-0">
+                <img src="{{personagem.image}}" alt="{{personagem.name}}"  class="img-fluid  bg-transparent rounded-top " style="border: solid 1px #63db58;"/>
+                <p class="rounded-bottom " style="background-color: #63db58; ">{{personagem.name}}</p>  
             </a>          
         </div>    
         
