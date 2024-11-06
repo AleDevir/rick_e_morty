@@ -4,3 +4,6 @@ pytest
 pytest-cov
 Flask
 requests
+pillow
+gunicorn
+whitenoise[brotli]
