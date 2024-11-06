@@ -2,7 +2,7 @@
 <img src="https://m.media-amazon.com/images/S/pv-target-images/f4517e863d25bbd8f2f7fdb1bd004cec8353ccd900d2bff2bd3ba33b662fc522._SX1080_FMjpg_.jpg" />
 
 Repositório pessoal para fins de aprendizado em Flask
-
+[Rick & Morty](https://rick-e-morty.onrender.com)
 
 
 Comando para instalação dos pacotes:
